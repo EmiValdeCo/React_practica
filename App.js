@@ -1,5 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
+import Inputs from './src/components/inputs';
+import Boton from './src/components/boton';
 import { useState } from 'react'
 
 export default function App() {
@@ -27,42 +29,52 @@ export default function App() {
     }
   }
 
+  const reset = () => {
+    setResultado(0);
+    setNumero1(0)
+    setNumero2(0)
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.texto}>Calculadora de números</Text>
-      <Text>Numero 1:</Text>
-      <TextInput
-        style={styles.input}
-        keyboardType='number-pad'
-        placeholder='Número 1'
-        value={numero1.toString()}
-        onChangeText={setNumero1}
+      <Inputs
+        titulo_input={'Numero 1'}
+        tipo_keyboard={'number-pad'}
+        numero={numero1}
+        setNumero={setNumero1}
       />
-      <Text>Numero 2: </Text>
-      <TextInput
-        style={styles.input}
-        keyboardType='number-pad'
-        placeholder='Número 2'
-        value={numero2.toString()}
-        onChangeText={setNumero2}
+      <Inputs
+        titulo_input={'Numero 2'}
+        tipo_keyboard={'number-pad'}
+        numero={numero2}
+        setNumero={setNumero2}
       />
       <View style={styles.botonesContainer}>
         <View style={styles.botonesContainer1}>
-          <TouchableOpacity style={styles.boton} onPress={sumar}>
-            <Text style={{ textAlign: 'center', color: 'white' }}>Sumar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.boton} onPress={restar}>
-            <Text style={{ textAlign: 'center', color: 'white' }}>Restar</Text>
-          </TouchableOpacity>
+          <Boton
+            textBoton={'Suma'}
+            evento={sumar}
+          />
+          <Boton
+            textBoton={'Restar'}
+            evento={restar}
+          />
         </View>
         <View style={styles.botonesContainer2}>
-          <TouchableOpacity style={styles.boton} onPress={multiplicar}>
-            <Text style={{ textAlign: 'center', color: 'white' }}>Multiplicar</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.boton} onPress={dividir}>
-            <Text style={{ textAlign: 'center', color: 'white' }}>Dividir</Text>
-          </TouchableOpacity>
+          <Boton
+            textBoton={'Multiplicar'}
+            evento={multiplicar}
+          />
+          <Boton
+            textBoton={'Dividir'}
+            evento={dividir}
+          />
         </View>
+        <Boton
+          textBoton={'Reset'}
+          evento={reset}
+        />
       </View>
       <Text>Resultado: {resultado}</Text>
       <StatusBar style="auto" />
@@ -83,27 +95,12 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20
   },
-  input: {
-    backgroundColor: 'grey',
-    width: 150,
-    padding: 10,
-    margin: 5,
-    fontSize: 20,
-    fontWeight: '900',
-    borderRadius: 20,
-    textAlign: 'center',
-  },
-  boton: {
-    backgroundColor: 'green',
-    width: 100,
-    padding: 10,
-    margin: 5,
-    borderRadius: 20
-  },
   botonesContainer: {
     flexDirection: 'column',
     marginTop: 10,
-    marginBottom: 20
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   botonesContainer1: {
     flexDirection: 'row'
